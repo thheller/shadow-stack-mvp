@@ -21,7 +21,7 @@ clj -M:dev:start
 
 ### NPM
 
-If you want to eventually use some NPM package or generally do not kind using npm run
+If you want to use some NPM packages later, or generally do not mind using npm, run
 
 ```
 npm install
