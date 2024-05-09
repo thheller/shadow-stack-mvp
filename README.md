@@ -31,7 +31,7 @@ npm start
 
 ## Ready to go
 
-The above will start the `:app` build defined in `shadow-cljs.edn` via the `repl/start` function defined [here](https://github.com/thheller/shadow-stack-mvp/blob/master/src/dev/repl.clj). It will also start building the CSS via `shadow-css`.
+The above will start the `:app` build defined in `shadow-cljs.edn` via the `repl/start` function defined [here](https://github.com/thheller/shadow-stack-mvp/blob/main/src/dev/repl.clj). It will also start building the CSS via `shadow-css`.
 
 Startup should look something like
 
