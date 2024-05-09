@@ -1,0 +1,17 @@
+;; shadow-cljs configuration
+{:deps
+ {:aliases [:dev]}
+
+ :dev-http
+ {5001 "public"}
+
+ :builds
+ {:app
+  {:target :browser
+   :modules
+   {:main
+    {:init-fn mvp.frontend/init
+     :preloads [shadow.grove.preload]}}
+
+   :output-dir "public/js"
+   }}}

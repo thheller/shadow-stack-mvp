@@ -1,0 +1,11 @@
+{
+  "name": "shadow-stack-mvp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "npx shadow-cljs run repl/start"
+  },
+  "devDependencies": {
+    "shadow-cljs": "2.28.6"
+  }
+}
