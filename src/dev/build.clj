@@ -1,6 +1,7 @@
 (ns build
   (:require
     [shadow.css.build :as cb]
+    [shadow.cljs.devtools.api :as shadow]
     [clojure.java.io :as io]))
 
 (defn css-release [& args]
@@ -16,6 +17,15 @@
     (doseq [mod (:outputs build-state)
             {:keys [warning-type] :as warning} (:warnings mod)]
       (prn [:CSS (name warning-type) (dissoc warning :warning-type)]))))
+
+(defn js-release []
+  (shadow/release! :app))
+
+(defn all []
+  (css-release)
+  (js-release)
+
+  :done)
 
 (comment
   (css-release))

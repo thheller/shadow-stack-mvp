@@ -22,4 +22,10 @@
 
   ;; command to start without the npm package
   :start
-  {:main-opts ["-m" "shadow.cljs.devtools.cli" "run" "repl/start"]}}}
+  {:main-opts ["-m" "shadow.cljs.devtools.cli" "run" "repl/start"]}
+
+  :release
+  {:main-opts ["-m" "shadow.cljs.devtools.cli" "run" "build/all"]}
+
+
+  }}

@@ -47,3 +47,19 @@ shadow-cljs - nREPL server started on port 56987
 ```
 
 Once completed you can open http://localhost:5001 to view the "app".
+
+## Making Release Builds
+
+You can create a release build from the UI running at http://localhost:9630/builds/app or from the command line
+
+### CLJ
+
+```
+clj -M:dev:release
+```
+
+### NPM
+
+```
+npm run release
+```
