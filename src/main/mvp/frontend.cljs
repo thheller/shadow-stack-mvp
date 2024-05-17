@@ -1,7 +1,7 @@
 (ns mvp.frontend
   (:require
     [shadow.grove :as sg :refer (css defc <<)]
-    [shadow.grove.db :as db]))
+    [shadow.grove.kv :as kv]))
 
 ;; our grove app
 (def app (sg/get-runtime :app))
@@ -15,11 +15,11 @@
 ;; a basic event handler
 (sg/reg-event app ::inc!
   (fn [env {:keys [id] :as ev}]
-    (update-in env [:db id :count] inc)))
+    (update-in env [:counter id :count] inc)))
 
 (defc ui-counter [id]
   (bind val
-    (sg/db-read [id :count]))
+    (sg/kv-lookup :counter id :count))
 
   (event ::inc! [env ev dom-event]
     ;; regular event handler shouldn't do any DOM related things
@@ -47,10 +47,10 @@
 
 (defc ui-root []
   (bind who
-    (sg/db-read :who))
+    (sg/kv-lookup :db :who))
 
   (bind counters
-    (sg/db-read :counters))
+    (sg/kv-lookup :db :counters))
 
   (render
     (<< [:div {:class $ui-root}
@@ -65,22 +65,23 @@
 
 ;; called once on page load via :init-fn in build config
 (defn init []
-  ;; db type info optional
-  ;; but required for db normalization which we'll use in this example
-  ;; this can only be done in init and before any data is added to db
-  (sg/add-db-type app :counter {:primary-key :id})
+  (sg/add-kv-table app :db {}
+    {:who "World"})
 
-  (sg/db-init app
+  (sg/add-kv-table app :counter
+    {:primary-key :id}
+    {})
+
+  (sg/kv-init app
     (fn [db]
       (-> db
-          (assoc :who "World")
           ;; merge-seq is helper to add and normalize data to db
-          (db/merge-seq :counter
+          (kv/merge-seq :counter
             ;; setup some dummy counters
             [{:id 1 :count 0}
              {:id 2 :count 5}]
-            ;; store generated idents in db :counters
-            [:counters]))))
+            ;; store generated vector in :db :counters
+            [:db :counters]))))
 
   (render))
 
