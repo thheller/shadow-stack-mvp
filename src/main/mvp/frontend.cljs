@@ -6,12 +6,6 @@
 ;; our grove app
 (def app (sg/get-runtime :app))
 
-;; web animations helper for fun
-(def shake
-  (sg/prepare-animation
-    {:transform ["translateX(0)" "translateX(-10px)" "translateX(10px)" "translateX(0)"]}
-    250))
-
 ;; a basic event handler
 (sg/reg-event app ::inc!
   (fn [env {:keys [id] :as ev}]
@@ -20,13 +14,6 @@
 (defc ui-counter [id]
   (bind val
     (sg/kv-lookup :counter id :count))
-
-  (event ::inc! [env ev dom-event]
-    ;; regular event handler shouldn't do any DOM related things
-    ;; so do that here first
-    (shake (.-target dom-event))
-    ;; and then let regular event handler do actual db update
-    (sg/run-tx env ev))
 
   (render
     (<< [:div {:class (css :text-center :pb-6)}
