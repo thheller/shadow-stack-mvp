@@ -1,25 +1,22 @@
 (ns mvp.frontend
   (:require
-    [shadow.grove :as sg :refer (css defc <<)]
+    [shadow.grove :as sg :refer (css defc deftx <<)]
     [shadow.grove.kv :as kv]))
 
-;; our grove app
-(def app (sg/get-runtime :app))
-
 ;; a basic event handler
-(sg/reg-event app ::inc!
-  (fn [env {:keys [id] :as ev}]
-    (update-in env [:counter id :count] inc)))
+(deftx inc! [id]
+  [tx-env ev e]
+  (update-in tx-env [:counter id :count] inc))
 
 (defc ui-counter [id]
   (bind val
     (sg/kv-lookup :counter id :count))
 
   (render
-    (<< [:div {:class (css :text-center :pb-6)}
+    (<< [:div (css :text-center :pb-6)
          [:button
-          {:class (css :border :shadow :py-2 :px-8)
-           :on-click {:e ::inc! :id id}}
+          (css :border :shadow :py-2 :px-8)
+          {:on-click (inc! id)}
           (str "click me: " val)]])))
 
 (def $ui-root
@@ -44,6 +41,9 @@
          (str "Hello " who "!")]
 
         (sg/simple-seq counters ui-counter))))
+
+;; the grove app state
+(def app (sg/get-runtime :app))
 
 (defn render []
   (sg/render app js/document.body
