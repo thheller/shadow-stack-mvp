@@ -36,17 +36,18 @@ The above will start the `:app` build defined in `shadow-cljs.edn` via the `repl
 Startup should look something like
 
 ```
-shadow-cljs - config: .../shadow-stack-mvp/shadow-cljs.edn
-shadow-cljs - starting via "clojure"
 shadow-cljs - HTTP server available at http://localhost:5001
-shadow-cljs - server version: 2.28.6 running at http://localhost:9630
+shadow-cljs - server version: 3.0.2 running at http://localhost:9630
 shadow-cljs - nREPL server started on port 56987
 [:app] Configuring build.
 [:app] Compiling ...
 [:app] Build completed. (196 files, 195 compiled, 0 warnings, 5.82s)
+shadow.user=>
 ```
 
 Once completed you can open http://localhost:5001 to view the "app".
+
+The started process also has REPL prompt you can run things with. Better yet you can connect to the started nREPL server with your editor via the `.shadow-cljs/nrepl.port` file.
 
 ## Making Release Builds
 

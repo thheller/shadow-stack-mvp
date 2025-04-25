@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "npx shadow-cljs run repl/start",
+    "start": "clj -M:dev:start",
     "release": "npx shadow-cljs run build/all"
   },
   "devDependencies": {
